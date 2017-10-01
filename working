@@ -1,0 +1,72 @@
+
+import sys
+import pygame
+pygame.init()
+
+
+width = 799
+height = 452
+
+
+
+
+speed = [1, 1]
+
+white = (255, 255, 255)
+size = (width, height)
+screen = pygame.display.set_mode(size)
+table= pygame.image.load('table.jpg')
+
+
+
+ball = pygame.image.load('88ball.png')
+
+ballrect = ball.get_rect()
+
+'pygame.draw.rect(gameDisplay, green , (150,450,100,50))'
+'pygame.draw.rect(gameDisplay, red , (550,450,100,50))'
+
+def DrawBackground(background, xpos, ypos):
+    screen.blit(background, [xpos, ypos])
+
+background = pygame.image.load('table2.jpg')
+xpos = 0
+ypos = 0
+
+
+for y in range(5):
+    for x in range(6):
+        DrawBackground(background, x*799, y*452)
+        
+while True:
+    
+    for event in pygame.event.get():
+        
+        if event.type == pygame.QUIT:
+            sys.exit()
+        
+        elif event.type == pygame.KEYDOWN:
+            
+            if event.key == pygame.K_SPACE:
+               speed[0] *= 2
+               speed[1] *= 2
+            
+            elif event.key == pygame.K_RETURN:
+               speed[0] /= 2
+               speed[1] /= 2
+
+    
+    ballrect = ballrect.move(speed)
+   
+    if ballrect.left < 0 or ballrect.right > width:
+        speed[0] *= -1
+    if ballrect.top < 0 or ballrect.bottom > height:
+        speed[1] *= -1
+
+    for y in range(5):
+        for x in range(6):
+            DrawBackground(background, x*799, y*452)
+    #screen.fill(white)
+    screen.blit(ball, ballrect)
+   
+    pygame.display.flip()
