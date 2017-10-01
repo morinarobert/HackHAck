@@ -1,0 +1,170 @@
+import tkinter
+import tkinter.messagebox
+import random
+import turtle
+import sys
+import pygame
+
+class MyGUI:
+
+    def __init__(self):
+        fans =["red","white","yellow","green","OrangeRed","orange","purple","gold"]
+        p=int(random.random()*len(fans))
+
+        
+        Font='times 18 bold underline'
+        Font1='ComicSans 18 bold ' 
+        self.main_window = tkinter.Tk()
+
+        self.top_frame = tkinter.Frame()
+        self.mid_frame = tkinter.Frame()
+        self.bottom_frame = tkinter.Frame()
+
+        self.prompt_label = tkinter.Label(self.top_frame,fg='blue', \
+                     text='Ask your Question & Find your Truth:',font= Font1)
+
+        self.my_button = tkinter.Button(self.bottom_frame, \
+                                   text = 'Shake the 8 Ball', font = Font, 
+                                   bg =(fans[p]),fg='blue',\
+                                   command=self.do_something)
+        self.entry = tkinter.Entry(self.mid_frame,bg ='Blue',fg='white', \
+                                        width=50)
+ 
+
+        self.quit_button = tkinter.Button(self.bottom_frame, \ 
+                                   text = 'Quit',bg =(fans[p]),fg='blue',\
+                                   command=self.main_window.destroy)
+
+        self.entry.pack(side='left')
+        
+        self.prompt_label.pack(side='top')
+        self.my_button.pack(side='top')
+        self.quit_button.pack(side='bottom')
+        self.top_frame.pack()
+        self.mid_frame.pack(side='top')
+        self.bottom_frame.pack(side='bottom')
+        tkinter.mainloop()
+        
+    def do_something(self):
+        wn = turtle.Screen()
+        wn = turtle.Screen()        
+        alex = turtle.Turtle()
+        alex.speed(5)
+        alex.forward(490)
+        alex.circle(12)
+        alex.forward(10)
+        alex.left(90)
+        alex.forward(75)
+        alex.forward(190)
+        alex.circle(12)
+        alex.forward(10)
+        alex.left(90)               
+        alex.forward(75)
+        alex.forward(490)
+        alex.circle(12)
+        alex.forward(10)           
+        alex.left(90)               
+        alex.forward(75)
+        alex.forward(190)
+        alex.circle(12)
+        alex.forward(10)
+        alex.left(90)               
+        alex.forward(75)
+        alex.left(90)               
+        alex.forward(25)#out           
+        alex.right(90)               
+        alex.forward(480)           
+        alex.left(90)               
+        alex.forward(200)
+        alex.forward(25)           
+        alex.left(90)               
+        alex.forward(75)
+        alex.forward(460)
+        alex.left(90)               
+        alex.forward(225)
+        alex.left(90)               
+        alex.forward(210)#in
+
+
+        outcome=['It is certain','It is decidedly',\
+                 'With out a doubt','You may rely on it','As I see it yes',\
+                 'Most Likely','Outlook good','Yes','Signs points to yes',\
+                 'Reply hazy try again later','Ask again later','Better not tell you now',\
+                 'Cannot predict now','Concentrate and ask again','Do not count on it',\
+                 'My reply is no ','My sources say no ','Outlook not so good',\
+                 'Very doubtful','Ask Google','Check with the professor',\
+                 'You might need to ask something stronger','Please dont make me answer that'\
+                 'Are you sure you want that answer?','this Question is better suited for Siri']
+        c= int(random.random()*len(outcome))
+        x=(outcome[c])
+        tkinter.messagebox.showinfo('Name & Major',x)
+        pygame.init()
+
+
+width = 640
+height = 680
+
+
+
+
+speed = [1, 1]
+
+white = (255, 255, 255)
+size = (width, height)
+screen = pygame.display.set_mode(size)
+table= pygame.image.load('table.jpg')
+
+
+
+ball = pygame.image.load('88ball.png')
+
+ballrect = ball.get_rect()
+
+'pygame.draw.rect(gameDisplay, green , (150,450,100,50))'
+'pygame.draw.rect(gameDisplay, red , (550,450,100,50))'
+def DrawBackground(background, xpos, ypos):
+    screen.blit(background, [xpos, ypos])
+
+background = pygame.image.load('table.jpg')
+xpos = 0
+ypos = 0
+
+
+for y in range(5):
+    for x in range(6):
+        DrawBackground(background, x*100, y*100)
+        
+while True:
+    
+    for event in pygame.event.get():
+        
+        if event.type == pygame.QUIT:
+            sys.exit()
+        
+        elif event.type == pygame.KEYDOWN:
+            
+            if event.key == pygame.K_SPACE:
+               speed[0] *= 2
+               speed[1] *= 2
+            
+            elif event.key == pygame.K_RETURN:
+               speed[0] /= 2
+               speed[1] /= 2
+
+    
+    ballrect = ballrect.move(speed)
+   
+    if ballrect.left < 0 or ballrect.right > width:
+        speed[0] *= -1
+    if ballrect.top < 0 or ballrect.bottom > height:
+        speed[1] *= -1
+
+    
+    screen.fill(white)
+    screen.blit(ball, ballrect)
+   
+    pygame.display.flip()
+
+
+        
+my_gui = MyGUI()
